@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 import {
   AlertOctagon,
   AlertTriangle,
   CheckCircle,
   Info,
   X,
-} from 'react-feather';
+} from "react-feather";
 
-import VisuallyHidden from '../VisuallyHidden';
+import VisuallyHidden from "../VisuallyHidden";
 
-import styles from './Toast.module.css';
-import { ToastContext } from '../ToastProvider/ToastProvider';
+import styles from "./Toast.module.css";
+import { ToastContext } from "../ToastProvider/ToastProvider";
 
 const ICONS_BY_VARIANT = {
   notice: Info,
@@ -19,11 +19,11 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ variant = 'notice', message, id }) {
-  const { removeToast } = React.useContext(ToastContext)
+function Toast({ variant = "notice", message, id }) {
+  const { removeToast } = React.useContext(ToastContext);
 
-  if (variant === '') {
-    variant = 'notice'
+  if (variant === "") {
+    variant = "notice";
   }
 
   const Icon = ICONS_BY_VARIANT[variant];
@@ -35,11 +35,16 @@ function Toast({ variant = 'notice', message, id }) {
           <Icon size={24} />
         </div>
         <p className={styles.content}>
+          <VisuallyHidden>{variant} - </VisuallyHidden>
           {message}
         </p>
-        <button className={styles.closeButton} onClick={() => removeToast(id)}>
+        <button
+          className={styles.closeButton}
+          onClick={() => removeToast(id)}
+          aria-label="Dismiss Message"
+          aria-live="off"
+        >
           <X size={24} />
-          <VisuallyHidden>Dismiss message</VisuallyHidden>
         </button>
       </div>
     </>
